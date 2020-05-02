@@ -1,0 +1,47 @@
+<v-container class="my-4">
+    <v-row>
+    <v-col cols="12">
+      <v-row
+        :align="alignment"
+        :justify="justify"
+        class="grey lighten-5"
+      >
+        <v-card
+          v-for="n in 3"
+          :key="n"
+          class="ma-3 pa-6"
+          outlined
+          tile
+        >
+          Column
+        </v-card>
+      </v-row>
+    </v-col>
+    </v-row>
+
+    <v-layout row wrap class="mb-3">
+      <v-flex xs12 md6>
+        <!-- <v-btn outline block>1</v-btn> -->
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+      <v-flex xs4 md2>
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+      <v-flex xs4 md2>
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+      <v-flex xs4 md2>
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row wrap justify-space-around>
+      <v-flex xs4 md3>
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+      <v-flex xs4 md3>
+        <v-btn block outlined color="indigo">Outlined Button</v-btn>
+      </v-flex>
+    </v-layout>
+
+  </v-container>
