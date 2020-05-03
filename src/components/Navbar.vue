@@ -1,25 +1,33 @@
 <template>
     <div>
         <v-navigation-drawer app  v-model="drawer" dark>
+            <!-- src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" -->
+              <!-- <v-img alt="Vuetify Logo"
+                            class="shrink mr-2"
+                            contain
+                            
+                    src="img/avatar/1.png"
+                    transition="scale-transition"
+                    width="40">
+                </v-img> -->
             <v-list-item>
                 <v-list-item-content>
                     <div class="d-flex justify-center">
-                        <v-img alt="Vuetify Logo"
-                            class="shrink mr-2"
-                            contain
-                            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-                            transition="scale-transition"
-                            width="40"></v-img>
-                            
+                        <v-avatar size="150" class="mt-5 mb-4">
+                            <v-img src="img/avatar/1.png" transition="scale-transition">
+
+                            </v-img>
+                        </v-avatar>    
                         </div>
                     <v-list-item-title class="title d-flex justify-center">
-                        Vuetify
+                        Arif Faysal
                     </v-list-item-title>
                     <v-list-item-subtitle class="ml-12">
-                         Working Application
+                         Vuetify Application
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
+            <div class="ma-3">  <Popup></Popup> </div>
                 <v-divider></v-divider>
             <v-list-item
             v-for="item in draweritems"
@@ -56,6 +64,42 @@
         </v-toolbar> -->
         <v-app-bar app>
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-toolbar-title class="indigo--text text--lighten-1">
+                Vue Application
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                
+                <div class="text-center">
+                    <v-menu offset-y transition="slide-x-transition" bottom right>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                        rounded
+                        class="grey darken-2 white--text"
+                        small
+                        v-on="on"
+                        >
+                        <v-icon small left>mdi-arrow-down-drop-circle</v-icon>
+                        <span>Menu</span> 
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                        v-for="(item, index) in draweritems"
+                        :key="index"
+                       link :to="item.route"
+                        >
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                    </v-menu>
+                </div>
+
+                <v-btn icon>
+                    <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+                <v-btn icon>
+                    <v-icon>mdi-logout</v-icon>
+                </v-btn>
         </v-app-bar>
         
     </div> 
@@ -66,11 +110,15 @@
 
 
 <script>
+import Popup from './Popup'
+
   export default {
+    components:{
+        Popup,
+    },
     data(){
         return{
             drawer: false,
-
             draweritems: [
                 { title: 'Dashboard', icon: 'mdi-view-dashboard', route:'/' },
                 { title: 'Project', icon: 'mdi-checkbox-multiple-blank-outline', route:'/project' },
