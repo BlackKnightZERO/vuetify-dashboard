@@ -16,41 +16,38 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <v-form class="px-3">
-                        <v-text-field label="Title" v-model="title" prepend-icon="mdi-google-play">
+                    <v-form class="px-3" ref="form">
+                        <v-text-field label="Title" v-model="title" prepend-icon="mdi-google-play" :rules="inputRules">
 
                         </v-text-field>
-                        <v-textarea label="Information" v-model="content" prepend-icon="mdi-grease-pencil">
+                        <v-textarea label="Information" v-model="content" prepend-icon="mdi-grease-pencil" :rules="inputRules">
 
                         </v-textarea>
+
+                         <v-menu
+                            v-model="menu2"
+                            :close-on-content-click="false"
+                            :nudge-right="40"
+                            transition="scale-transition"
+                            offset-y
+                            max-width="290px"
+                        >
+                            <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="date"
+                                label="Date"
+                                prepend-icon="mdi-calendar"
+                                v-on="on"
+                                class="px-4"
+                                
+                            ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+                        </v-menu>
                     </v-form>
                 </v-card-text>
                 
-                <!-- <v-menu>
-                    <v-text-field slot="activator:on" labe="Due Date" prepend-icon="mdi-calendar">
-                    </v-text-field>
-                    <v-date-picker v-model="due"></v-date-picker>
-                </v-menu> -->
-                <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                >
-                    <template v-slot:activator="{ on }">
-                    <v-text-field
-                        v-model="date"
-                        label="Date"
-                        prepend-icon="mdi-calendar"
-                        v-on="on"
-                        class="px-4"
-                        
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-                </v-menu>
+               
                 
                 <v-divider></v-divider>
 
@@ -71,22 +68,35 @@
 </template>
 
 <script>
+
+// import format from 'date-fns/format'
+
 export default {
     data(){
         return{
             title:"",
             content:"",
             due:null,
-             date: new Date().toISOString().substr(0, 10),
-      menu: false,
-      modal: false,
-      menu2: false,
+            date: new Date().toISOString().substr(0, 10),
+            menu2: false,
+
+            inputRules:[
+                v => v.trim().length!=0 || 'Empty Fields'
+            ]
         }
     },
     methods:{
         submit(){
-            console.log(this.title, this.content);
+            if(this.$refs.form.validate()){
+            console.log(this.title, this.content,this.date);
+            }
+           // console.log(this.$refs.form.validate());
         }
     },
+    computed:{
+        // formattedDate(){
+        //     return this.due ? format(this.due, 'Do MMM YYYY') : ''
+        // }
+    }
 }
 </script>
