@@ -15,7 +15,7 @@
                             <div class="subheading"> {{ member.name }} </div>
                             <div class="grey--text"> {{ member.designation }} </div>
                         </v-card-text>
-                        <v-card-action>
+                        <v-card-actions>
                             <v-row class="d-flex justify-center">
                                 <v-col cols="3">
                                     <v-btn icon color="blue lighten-2">
@@ -33,7 +33,7 @@
                                     </v-btn>
                                 </v-col>
                             </v-row>
-                        </v-card-action>
+                        </v-card-actions>
                     </v-card>
                 </v-col>
                 

@@ -71,7 +71,7 @@
     
         <div class="mt-5">
           <p class="grey--text font-weight-medium">My Projects</p>
-          <v-expansion-panels hover="true" multiple="true" accordion="true">
+          <v-expansion-panels hover multiple accordion>
             <v-expansion-panel
               v-for="project in myProjects"
               :key="project.title"

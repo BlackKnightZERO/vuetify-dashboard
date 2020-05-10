@@ -69,7 +69,8 @@
 
 <script>
 
-// import format from 'date-fns/format'
+import { format } from 'date-fns'
+import db from '@/fb'
 
 export default {
     data(){
@@ -88,8 +89,20 @@ export default {
     methods:{
         submit(){
             if(this.$refs.form.validate()){
-            console.log(this.title, this.content,this.date);
+            //console.log(this.title, this.content,this.date);
+            const Project = {
+                title: this.title,
+                content: this.content,
+                due:format(new Date(this.date), 'EEEE, MMMM do yyyy'),
+                status:'ongoing',
+                person: 'Arif Faysal'
             }
+
+            db.collection('Project').add(Project).then(()=>{
+                console.log('Added to DB');
+            })
+            // console.log(format(new Date(this.date), 'EEEE, MMMM do yyyy'));
+           }
            // console.log(this.$refs.form.validate());
         }
     },
