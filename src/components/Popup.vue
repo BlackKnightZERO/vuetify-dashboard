@@ -1,6 +1,6 @@
 <template>
      <div class="text-center">
-         <v-dialog max-width="600">
+         <v-dialog max-width="600" v-model="dialog">
             <template v-slot:activator="{ on }">    
                 <v-btn color="success lighten-1" dark v-on="on">
                     Add new project
@@ -52,12 +52,21 @@
                 <v-divider></v-divider>
 
                 <v-card-actions class="d-flex justify-end mx-5">
-               
+               <v-btn
+                    
+                    class="warning"
+                    small
+                    @click="clear"
+                >
+                    Clear
+                </v-btn>
+
                 <v-btn
                     
                     class="success"
                     small
                     @click="submit"
+                    :loading="buttonLoading"
                 >
                     Add Project
                 </v-btn>
@@ -83,12 +92,17 @@ export default {
 
             inputRules:[
                 v => v.trim().length!=0 || 'Empty Fields'
-            ]
+            ],
+
+            buttonLoading:false,
+            dialog:false,
         }
     },
     methods:{
         submit(){
             if(this.$refs.form.validate()){
+                this.buttonLoading = true;
+
             //console.log(this.title, this.content,this.date);
             const Project = {
                 title: this.title,
@@ -100,11 +114,20 @@ export default {
 
             db.collection('Project').add(Project).then(()=>{
                 console.log('Added to DB');
+                this.buttonLoading = false;
+                this.clear();
+                this.dialog=false;
+                this.$emit('projectAdded');
             })
             // console.log(format(new Date(this.date), 'EEEE, MMMM do yyyy'));
            }
            // console.log(this.$refs.form.validate());
-        }
+        },
+        clear () {
+        this.$refs.form.reset()
+        this.title = ''
+        this.content = ''
+      },
     },
     computed:{
         // formattedDate(){

@@ -27,7 +27,9 @@
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
-            <div class="ma-3">  <Popup></Popup> </div>
+            <div class="ma-3">  
+                <Popup @projectAdded="snackbar=true"></Popup> 
+            </div>
                 <v-divider></v-divider>
             <v-list-item
             v-for="item in draweritems"
@@ -101,6 +103,23 @@
                     <v-icon>mdi-logout</v-icon>
                 </v-btn>
         </v-app-bar>
+
+         <v-snackbar
+            v-model="snackbar"
+            top
+            :timeout="4000"
+            color="success"
+        >
+            Awesome ! New project added..
+      <v-btn
+        dark
+        text
+        small
+        @click="snackbar = false"
+      >
+        X
+      </v-btn>
+    </v-snackbar>
         
     </div> 
 
@@ -126,6 +145,8 @@ import Popup from './Popup'
                 { title: 'Settings', icon: 'mdi-cog-outline', route:'/settings' },
                 { title: 'About', icon: 'mdi-information-outline', route:'/about' },
             ],
+
+            snackbar:false,
         }
     }
   }
